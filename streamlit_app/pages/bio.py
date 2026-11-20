@@ -8,7 +8,7 @@ st.title("Biography")
 st.caption("Retail Sales as a Composition of the M5 Competition Dataset from Walmart · Elaine Key ")
 
 #little image reader
-img = base64.b64encode(open("assets/profile.svg", "rb").read()).decode()
+img = base64.b64encode(open(ROOT / "assets" / "profile.svg", "rb").read()).decode()
 
 st.markdown(f'<img src="data:image/svg+xml;base64,{img}" width="160" alt="">',
             unsafe_allow_html=True)
