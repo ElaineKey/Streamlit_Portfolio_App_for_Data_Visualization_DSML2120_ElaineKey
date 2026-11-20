@@ -1,6 +1,9 @@
 import base64
 import streamlit as st
 
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
+
 st.title("Biography")
 st.caption("Retail Sales as a Composition of the M5 Competition Dataset from Walmart · Elaine Key ")
 
