@@ -3,6 +3,9 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+#Cluade fix
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
 
 #color palette stuff
 COLORS = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#56B4E9", "#CC79A7"]
