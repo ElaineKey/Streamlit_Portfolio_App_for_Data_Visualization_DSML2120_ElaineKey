@@ -13,7 +13,8 @@ COLORS = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#56B4E9", "#CC79A7"]
 
 @st.cache_data
 def load():
-    w = pd.read_csv("data/weekly_item_store.csv", parse_dates=["week_start"])
+    #Claude fix
+    w = pd.read_csv(ROOT / "data/weekly_item_store.csv", parse_dates=["week_start"])
     w = w.sort_values(["item_id", "store_id", "week_start"])
 
 #target is units, so computing revenue
@@ -28,7 +29,7 @@ def load():
     w["units_change"] = (w.units / prev4 - 1) * 100
     w["price_move"] = np.select([w.price_change < -0.005, w.price_change > 0.005], ["Price cut", "Price rise"], "No change")
     w.loc[w.price_change.isna(), "price_move"] = None
-    d = pd.read_csv("data/daily_store_category.csv", parse_dates=["date"])
+    d = pd.read_csv(ROOT / "data/daily_store_category.csv", parse_dates=["date"])
     return w.replace([np.inf, -np.inf], np.nan), d
 
 
