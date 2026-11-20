@@ -29,6 +29,7 @@ def load():
     w["units_change"] = (w.units / prev4 - 1) * 100
     w["price_move"] = np.select([w.price_change < -0.005, w.price_change > 0.005], ["Price cut", "Price rise"], "No change")
     w.loc[w.price_change.isna(), "price_move"] = None
+    #Claude fix
     d = pd.read_csv(ROOT / "data/daily_store_category.csv", parse_dates=["date"])
     return w.replace([np.inf, -np.inf], np.nan), d
 
