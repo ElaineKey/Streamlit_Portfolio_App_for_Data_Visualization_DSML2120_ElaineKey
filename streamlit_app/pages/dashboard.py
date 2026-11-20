@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
 
 #you can set the color as any palette you want!
 #this is a built feature in streamlit
@@ -20,7 +22,8 @@ SOURCE = "https://www.kaggle.com/c/m5-forecasting-accuracy"
 @st.cache_data
 def load():
 
-    w = pd.read_csv("data/weekly_item_store.csv", parse_dates=["week_start"])
+    #Claude root read fix
+    w = pd.read_csv(ROOT / "data/weekly_item_store.csv", parse_dates=["week_start"])
     w = w.sort_values(["item_id", "store_id", "week_start"])
     w["year"] = w.week_start.dt.year
     w["revenue"] = w.units * w.sell_price
@@ -31,7 +34,9 @@ def load():
     w["units_change"] = (w.units / prev4 - 1) * 100
     w["price_move"] = np.select([w.price_change < -0.005, w.price_change > 0.005], ["Price cut", "Price rise"], "No change")
     w.loc[w.price_change.isna(), "price_move"] = None
-    d = pd.read_csv("data/daily_store_category.csv", parse_dates=["date"])
+
+    #Claude root read  fix
+    d = pd.read_csv(ROOT / "data/daily_store_category.csv", parse_dates=["date"])
     d["year"] = d.date.dt.year
     return w.replace([np.inf, -np.inf], np.nan), d
 
