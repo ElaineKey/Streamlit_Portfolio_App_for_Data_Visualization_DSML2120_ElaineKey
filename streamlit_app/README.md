@@ -1,6 +1,6 @@
 # Retail Sales Explorer
 
-Multipage Streamlit app: `app.py` is the home page and every file in `pages/` appears in the sidebar automatically.
+`app.py` is the home page and every file in `pages/` appears in the sidebar automatically.
 
 ```
 app.py   pages/{bio,charts,dashboard,future_work}.py   data/   assets/   requirements.txt
