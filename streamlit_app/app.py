@@ -5,4 +5,4 @@ st.set_page_config(page_title="Retail Sales Explorer", page_icon="", layout="wid
 
 st.title("Retail Sales thingy (CHANGE THIS)")
 st.subheader("Price changes, SNAP days, store performance and department trends")
-st.markdown("Elaine Key (github link)")
+st.markdown("Elaine Key, https://github.com/ElaineKey")
