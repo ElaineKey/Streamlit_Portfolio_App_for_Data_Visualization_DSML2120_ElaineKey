@@ -6,6 +6,8 @@ import streamlit as st
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
+REFRESHED = "2026-11-17" 
+
 #you can set the color as any palette you want!
 #this is a built feature in streamlit
 
