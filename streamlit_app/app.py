@@ -3,7 +3,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Retail Sales Explorer", page_icon="", layout="wide")
 
-st.title("Retail Sales thingy (CHANGE THIS)")
+st.title("Retail Sales Visualization Tool")
 st.subheader("Price changes, SNAP days, store performance and department trends")
 
 st.markdown("Elaine Key, https://github.com/ElaineKey, elainemkey@gmail.com")
