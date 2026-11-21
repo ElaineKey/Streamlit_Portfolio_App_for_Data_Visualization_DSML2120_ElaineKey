@@ -203,7 +203,7 @@ with tabs[2]:
 
 #narrative stuff
 st.divider()
-st.subheader("What the data say")
+st.subheader("Data Interpretation:")
 st.markdown("\n".join(f"- {i}" for i in insights))
 
 st.markdown("- **Limitations:** results are descriptive, not causal. Price changes, SNAP days and sales can all move with season and paydays, "
