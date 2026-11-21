@@ -8,7 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 #color palette stuff
-COLORS = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#56B4E9", "#CC79A7"]
+COLORS = ["#6B8E5A", "#C8782A", "#8C5A3C", "#3F6C7A", "#D4A94A", "#A8483A", "#4A4036"]
+#COLORS = ["#0072B2", "#E69F00", "#009E73", "#D55E00", "#56B4E9", "#CC79A7"]
 
 
 @st.cache_data
