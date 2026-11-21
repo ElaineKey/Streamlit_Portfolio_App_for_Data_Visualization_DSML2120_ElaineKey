@@ -54,15 +54,14 @@ st.plotly_chart(fig, width="stretch")
 
 with st.expander("How to read this chart", expanded=True):
     st.markdown("- Each bar is one item; a longer bar means its price changes more often.\n"
-                "- The x-axis is price changes per store per year (a move of more than 0.5% week to week).\n"
+                "- The x-axis is price changes per store per year\n "
                 "- Colour shows category. Hover to see exact values.")
 
 all_rates = w.groupby("item_id").changed.mean() * 52
 st.markdown(f"- `{top.item_id.iloc[-1]}` changes price about {top.changes_per_year.iloc[-1]:.1f} times per store per year, the most of any item.\n"
 
             f"- The median item changes price {all_rates.median():.1f} times per year.\n"
-            f"- {(all_rates == 0).sum()} of {len(all_rates)} items never changed price.\n"
-            f"- The most common category in the top 15 is {top.cat_id.mode()[0].title()}.")
+            f"- {(all_rates == 0).sum()} of {len(all_rates)} items never changed price.\n")
 
 # BAR CHART How do weekly units differ when prices fall rise or stay the same?
 st.header("2. Weekly units by price as they rise, fall, or stay the same")
@@ -82,14 +81,13 @@ st.caption(f"Based on a random sample of {len(x):,} item-store weeks; y-axis lim
 
 with st.expander("How to read this chart", expanded=True):
     st.markdown("- The line in each box is the median; the box covers the middle 50% of weeks.\n"
-                "- Left to right: weeks with a price cut, no change, and a price rise.\n"
-                "- The y-axis is the % change in units compared with the item's average over the previous four weeks.")
+                "- The y-axis is the % change in units compared with the item's average.")
 
 med = x.groupby("price_move").units_change.median()
 q = x[x.price_move == "No change"].units_change.quantile([.25, .75])
 
-st.markdown(f"- Median units change is {med['Price cut']:+.0f}% in price-cut weeks, {med['No change']:+.0f}% in no-change weeks and {med['Price rise']:+.0f}% in price-rise weeks.\n"
-            f"- Even with no price change, the middle 50% of weeks range from {q.iloc[0]:+.0f}% to {q.iloc[1]:+.0f}%, which is normal week-to-week variation.\n"
+st.markdown(
+            f"- Even with no price change, the middle 50% of weeks range from {q.iloc[0]:+.0f}% to {q.iloc[1]:+.0f}%, \n"
             f"- The sample holds {(x.price_move == 'Price cut').sum():,} cut weeks and {(x.price_move == 'Price rise').sum():,} rise weeks.")
 
 #HEATMAP do snap days lift sales more in some catgories and states
@@ -103,14 +101,14 @@ fig = px.imshow(lift, text_auto=".1f", color_continuous_scale="Cividis", aspect=
 
 st.plotly_chart(fig, width="stretch")
 
+#expanders from the streamlit documentation for visualizations
 with st.expander("How to read this chart", expanded=True):
     st.markdown("- Rows are states and columns are product categories.\n"
                 "- Each cell is the % difference in average daily store revenue on SNAP days vs non-SNAP days in the same state.\n"
-                "- Lighter cells are higher, darker cells are lower, and the number is printed in the cell.")
+                "- Lighter cells are higher, darker cells are lower.")
 
 st.markdown(f"- The largest difference is {lift.max().max():.1f}% and the smallest is {lift.min().min():.1f}%.\n"
-            f"- Average difference by category: " + ", ".join(f"{c.title()} {v:.1f}%" for c, v in lift.mean().items()) + ".\n"
-            "- Each state is compared only with its own non-SNAP days, because states issue benefits on different days.")
+            f"- Average difference by category: " + ", ".join(f"{c.title()} {v:.1f}%" for c, v in lift.mean().items()) + ".\n")
 
 #HISTOGRAM how is total revenue spread across items (planning question)
 st.header("4. Histogram of revenue spread across items")
@@ -125,15 +123,12 @@ st.plotly_chart(fig, width="stretch")
 
 with st.expander("How to read this chart", expanded=True):
     st.markdown("- Each bar counts the items whose total revenue falls in that range.\n"
-                "- The x-axis is dollars of revenue (units × sell price); the y-axis is the number of items.\n"
-                "- Tall bars on the left with a long right tail mean many low earners and a few big ones.")
+                "- The x-axis is dollars of revenue, the y-axis is the number of items.\n")
 
 top10 = rev.iloc[:int(np.ceil(len(rev) * .1))].sum() / rev.sum()
 st.markdown(f"- Median item revenue is ${rev.median():,.0f} while the mean is ${rev.mean():,.0f}.\n"
-            f"- The top item earns ${rev.iloc[0]:,.0f}, about {rev.iloc[0] / rev.median():.0f} times the median.\n"
             f"- The top 10% of items earn {top10:.0%} of total revenue.")
 
 st.divider()
 st.info("**Ethics & limitations.** These are aggregated store sales with no individual shoppers. SNAP-day comparisons "
-        "describe store-level patterns only and say nothing about people who receive benefits. The data are a sample "
-        "from one retailer and may not generalise; patterns are descriptive, not causal.")
+        "describe store-level patterns only and say nothing about people who receive benefits. ")
